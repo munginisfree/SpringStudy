@@ -1,10 +1,13 @@
 package com.study.springStudy;
 
-import com.study.springStudy.chap01.Hotel;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+@SpringBootApplication
+@ServletComponentScan(basePackages = "com.study.springStudy")
 public class Main {
     public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
     }
 }

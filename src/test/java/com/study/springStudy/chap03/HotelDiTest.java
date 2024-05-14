@@ -1,9 +1,8 @@
 package com.study.springStudy.chap03;
 
-import com.study.springStudy.chap03.config.HotelManager;
+import com.study.springStudy.core.chap03.Hotel;
+import com.study.springStudy.core.chap03.config.HotelManager;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HotelDiTest {
     @Test
