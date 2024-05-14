@@ -29,7 +29,7 @@ public class FrontControllerV2 extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(" 브라우저 요청이 들어옴 ");
+//        System.out.println(" 브라우저 요청이 들어옴 ");
 
         // 들어온 요청 구분하기
         String uri = req.getRequestURI();
