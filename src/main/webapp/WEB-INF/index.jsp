@@ -7,6 +7,9 @@
     <title>Web Study</title>
 </head>
 <body>
-  <h1>hiiiiiii nice to see ya</h1>
+  <h1>hiiiiiii Welcomeeee</h1>
+<a href="/chap01/join">회원가입하기</a>
+<a href="/chap02/v1/join">회원가입하기(front v1)</a>
+<a href="/chap02/v2/join">회원가입하기(front v2)</a>
 </body>
 </html>
