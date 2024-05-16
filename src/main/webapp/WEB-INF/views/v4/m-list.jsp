@@ -17,7 +17,7 @@
 
 <ul>
 
-    <h1> 목록보기</h1>
+    <h1>FrontControllerV4 목록보기</h1>
 
     <c:forEach var="m" items="${memberList}">
         <li>
@@ -33,7 +33,7 @@
 
 </ul>
 
-<a href="/chap02/v1/join">새로운 회원가입하기</a>
+<a href="/chap02/v4/join">새로운 회원가입하기</a>
 
 
 
