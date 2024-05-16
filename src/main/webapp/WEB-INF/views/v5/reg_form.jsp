@@ -15,9 +15,9 @@
 </head>
 <body>
 
-<h1>MVC 회원가입 양식</h1>
+<h1>frontControllerV5 회원가입 양식</h1>
 
-<form action="/chap01/save" method="post">
+<form action="/chap02/v5/save" method="post">
     <label>
         # 계정명: <input type="text" name="account">
     </label>
