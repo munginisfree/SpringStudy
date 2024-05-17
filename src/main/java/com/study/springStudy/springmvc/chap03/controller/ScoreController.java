@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ import java.util.List;
     - /score/register : POST
 
     3. 성적정보 삭제 요청
-    - /score/remove : POST
+    - /score/remove : GET 원래는 삭제는 절대절대 get쓰면 안됨 주소창으로 바로 접근 가능하기 때문에
 
     4. 성적정보 상세 조회 요청
     - /score/detail : GET
@@ -42,9 +43,12 @@ public class ScoreController {
 //    }
 
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(String sort, Model model) {
         System.out.println("/score/list: GET!!");
-        List<Score> scoreList = repository.findAll();
+        List<Score> scoreList = repository.findAll(sort);
+
+
+
         model.addAttribute("sList", scoreList);
 
         return "score/score-list";
@@ -61,14 +65,14 @@ public class ScoreController {
         return "redirect:/score/list";
     }
 
-    @PostMapping("/remove")
-    public String remove(long stuNum) {
+    @GetMapping("/remove")
+    public String remove(@RequestParam("sn") long stuNum) {
         System.out.println("/score/remove: POST!!");
 
         // 1. 지우기 원하는 학번 읽기
 
         // 2. DB에 지우기 요청
-        repository.remove(stuNum);
+        repository.delete(stuNum);
         return "redirect:/score/list";
     }
     @GetMapping("/detail")

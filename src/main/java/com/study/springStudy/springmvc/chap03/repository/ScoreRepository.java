@@ -10,10 +10,12 @@ public interface ScoreRepository {
     // 저장소에 데이터 추가하기
     boolean save(Score score);
     // 저장소에서 데이터 전체조회하기
-    List<Score> findAll();
+    List<Score> findAll(String sort);
     // 저장소에서 데이터 개별조회하기
     Score findOne(long stuNum);
 
-    boolean remove(long stuNum);
+    default boolean delete(long stuNum){
+        return false;
+    }; // 강제 overriding에서 빠짐
     // 저장소에서 데이터 삭제하기
 }

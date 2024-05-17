@@ -12,7 +12,7 @@ public class ScoreMemoryRepository implements ScoreRepository {
     }
 
     @Override
-    public List<Score> findAll() {
+    public List<Score> findAll(String sort) {
         return List.of();
     }
 
@@ -22,7 +22,7 @@ public class ScoreMemoryRepository implements ScoreRepository {
     }
 
     @Override
-    public boolean remove(long stuNum) {
+    public boolean delete(long stuNum) {
         return false;
     }
 }

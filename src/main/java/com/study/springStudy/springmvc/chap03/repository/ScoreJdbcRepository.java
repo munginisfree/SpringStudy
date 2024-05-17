@@ -49,10 +49,10 @@ public class ScoreJdbcRepository implements ScoreRepository {
     }
 
     @Override
-    public List<Score> findAll() {
+    public List<Score> findAll(String sort) {
         List<Score> scoreList = new ArrayList<>();
         try(Connection conn = connect()){
-            String sql = "SELECT * FROM tbl_score";
+            String sql = "SELECT * FROM tbl_score" + sortCindition(sort);
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             ResultSet rs = pstmt.executeQuery();
@@ -64,6 +64,22 @@ public class ScoreJdbcRepository implements ScoreRepository {
             e.printStackTrace();
         }
         return scoreList;
+    }
+
+    private String sortCindition(String sort) {
+        String sortSql = "ORDER BY ";
+        switch (sort){
+            case "stuNum":
+                sortSql += "stu_num";
+                break;
+            case "name":
+                sortSql += "stu_name";
+                break;
+            case "avg":
+                sortSql += "average DESC";
+                break;
+        }
+        return sortSql;
     }
 
     @Override
@@ -89,7 +105,7 @@ public class ScoreJdbcRepository implements ScoreRepository {
         return DriverManager.getConnection(url, username, password);
     }
 
-    public boolean remove(long stuNum) {
+    public boolean delete(long stuNum) {
         try(Connection conn = connect()){
             String sql = "DELETE FROM tbl_score WHERE stu_num = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
