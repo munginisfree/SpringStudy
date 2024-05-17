@@ -43,7 +43,7 @@ public class ScoreController {
 //    }
 
     @GetMapping("/list")
-    public String list(String sort, Model model) {
+    public String list(@RequestParam(defaultValue = "stuNum") String sort, Model model) {
         System.out.println("/score/list: GET!!");
         List<Score> scoreList = repository.findAll(sort);
 

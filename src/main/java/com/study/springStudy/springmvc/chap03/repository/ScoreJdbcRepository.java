@@ -52,7 +52,7 @@ public class ScoreJdbcRepository implements ScoreRepository {
     public List<Score> findAll(String sort) {
         List<Score> scoreList = new ArrayList<>();
         try(Connection conn = connect()){
-            String sql = "SELECT * FROM tbl_score" + sortCindition(sort);
+            String sql = "SELECT * FROM tbl_score " + sortCondition(sort);
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             ResultSet rs = pstmt.executeQuery();
@@ -66,7 +66,7 @@ public class ScoreJdbcRepository implements ScoreRepository {
         return scoreList;
     }
 
-    private String sortCindition(String sort) {
+    private String sortCondition(String sort) {
         String sortSql = "ORDER BY ";
         switch (sort){
             case "stuNum":
