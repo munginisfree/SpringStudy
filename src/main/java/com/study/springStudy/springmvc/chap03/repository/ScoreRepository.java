@@ -13,5 +13,7 @@ public interface ScoreRepository {
     List<Score> findAll();
     // 저장소에서 데이터 개별조회하기
     Score findOne(long stuNum);
+
+    boolean remove(long stuNum);
     // 저장소에서 데이터 삭제하기
 }

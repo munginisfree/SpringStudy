@@ -3,6 +3,9 @@ package com.study.springStudy.springmvc.chap03.controller;
 import com.study.springStudy.springmvc.chap03.dto.ScorePostDto;
 import com.study.springStudy.springmvc.chap03.entity.Score;
 import com.study.springStudy.springmvc.chap03.repository.ScoreJdbcRepository;
+import com.study.springStudy.springmvc.chap03.repository.ScoreRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +28,18 @@ import java.util.List;
     4. 성적정보 상세 조회 요청
     - /score/detail : GET
  */
+@Component
 @Controller
 @RequestMapping("/score")
+@RequiredArgsConstructor
 public class ScoreController {
 
     //의존객체 설정
-    private ScoreJdbcRepository repository = new ScoreJdbcRepository();
+    //ScoreJdbc 대신 그냥 ScoreRepository로 만들어서 DIP를 위반하지 않도록 함
+    private final ScoreRepository repository;
+//    public ScoreController(ScoreRepository repository) {
+//        this.repository = repository;
+//    }
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -53,8 +62,13 @@ public class ScoreController {
     }
 
     @PostMapping("/remove")
-    public String remove() {
+    public String remove(long stuNum) {
         System.out.println("/score/remove: POST!!");
+
+        // 1. 지우기 원하는 학번 읽기
+
+        // 2. DB에 지우기 요청
+        repository.remove(stuNum);
         return "redirect:/score/list";
     }
     @GetMapping("/detail")
