@@ -15,6 +15,7 @@ public class BoardListResponseDto {
     }
      */
     // 필드명은 클라이언트 개발자가 원하는 데로 해야햠 왜냐하면 나중에 위에 같이 들어가기때문에
+    private int bno;
     private String shortTitle; // 5글자 이상 줄임 처리된 제목
     private String shortContent; // 30자 이상 줄임 처리된 글 내용
     private String date; // 포맷팅된 날짜 문자열
@@ -22,6 +23,7 @@ public class BoardListResponseDto {
 
     // 엔터티를 DTO로 변환하는 생성자
     public BoardListResponseDto(Board b) {
+        this.bno = b.getBoardNo();
         this.shortTitle = makeShortText(b.getTitle(), 5);
         this.shortContent = makeShortText(b.getContent(), 30);
         this.date = dateFormatting(b.getRegDateTime());
