@@ -33,24 +33,24 @@
     </div>
 
     <div class="card-container">
-
+        <c:forEach var="b" items="${bList}">
         <div class="card-wrapper">
             <section class="card" data-bno="1">
                 <div class="card-title-wrapper">
-                    <h2 class="card-title">메롱메롱</h2>
+                    <h2 class="card-title">${b.shortTitle}</h2>
                     <div class="time-view-wrapper">
                         <div class="time">
                             <i class="far fa-clock"></i>
-                            2023-03-31</div>
+                            ${b.date}</div>
                         <div class="view">
                             <i class="fas fa-eye"></i>
-                            <span class="view-count">0</span>
+                            <span class="view-count">${b.view}</span>
                         </div>
                     </div>
                 </div>
                 <div class="card-content">
 
-                    djsfldjsfsdf
+                    ${b.shortContent}
 
                 </div>
             </section>
@@ -60,6 +60,7 @@
                 </button>
             </div>
         </div>
+        </c:forEach>
 
 
     </div>
