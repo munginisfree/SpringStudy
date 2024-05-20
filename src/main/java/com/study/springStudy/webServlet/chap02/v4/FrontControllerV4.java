@@ -1,6 +1,6 @@
 package com.study.springStudy.webServlet.chap02.v4;
 
-import com.study.springStudy.webServlet.Model;
+import com.study.springStudy.webServlet.OurModel;
 import com.study.springStudy.webServlet.ModelAndView;
 import com.study.springStudy.webServlet.chap02.v4.controller.*;
 
@@ -40,7 +40,7 @@ public class FrontControllerV4 extends HttpServlet {
         Map<String, String> parameterMap = createParamMap(req);
 
 //        ModelAndView view = controller.process(parameterMap);
-        Model model = new Model();
+        OurModel model = new OurModel();
         String viewName = controller.process(parameterMap, model);
         ModelAndView mv = new ModelAndView(viewName);
         mv.setModel(model);

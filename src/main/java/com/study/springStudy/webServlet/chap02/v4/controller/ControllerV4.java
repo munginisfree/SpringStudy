@@ -1,8 +1,6 @@
 package com.study.springStudy.webServlet.chap02.v4.controller;
 
-import com.study.springStudy.webServlet.Model;
-import com.study.springStudy.webServlet.ModelAndView;
-import com.study.springStudy.webServlet.View;
+import com.study.springStudy.webServlet.OurModel;
 
 import java.util.Map;
 
@@ -20,5 +18,5 @@ public interface ControllerV4 {
      *
      * @return - 응답시 포워딩하거나 리다이렉트 할 경로 문자열
      */
-    String process(Map<String, String> paramMap, Model model);
+    String process(Map<String, String> paramMap, OurModel model);
 }

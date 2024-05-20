@@ -7,11 +7,11 @@ import java.io.IOException;
 
 public class ModelAndView {
     private View view; //화면 처리
-    private Model model; //화면에 필요한 데이터 처리
+    private OurModel model; //화면에 필요한 데이터 처리
 
     public ModelAndView(String viewName) {
         this.view = new View(viewName);
-        this.model = new Model();
+        this.model = new OurModel();
     }
 
     // 화면 랜더링 기능 (forwarding or redirect)
@@ -32,11 +32,11 @@ public class ModelAndView {
         this.view = view;
     }
 
-    public Model getModel() {
+    public OurModel getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(OurModel model) {
         this.model = model;
     }
 }

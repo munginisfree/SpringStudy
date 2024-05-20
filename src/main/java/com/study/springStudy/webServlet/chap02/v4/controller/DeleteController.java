@@ -1,14 +1,14 @@
 package com.study.springStudy.webServlet.chap02.v4.controller;
 
 import com.study.springStudy.webServlet.MemberMemoryRepo;
-import com.study.springStudy.webServlet.Model;
+import com.study.springStudy.webServlet.OurModel;
 
 import java.util.Map;
 
 public class DeleteController implements ControllerV4{
     private MemberMemoryRepo repo = MemberMemoryRepo.getInstance();
     @Override
-    public String process(Map<String, String> paramMap, Model model) {
+    public String process(Map<String, String> paramMap, OurModel model) {
         // 1. 브라우저에서 삭제 요청이 오면 삭제할 대상의 account를 읽는다.
         String account = paramMap.get("account");
 

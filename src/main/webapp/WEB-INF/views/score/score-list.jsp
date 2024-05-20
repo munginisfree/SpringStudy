@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
@@ -62,18 +63,21 @@
 
             width: 50%;
         }
+
         .list-header .sort-link-group {
             display: flex;
 
         }
+
         .list-header .sort-link-group div {
             margin-right: 20px;
         }
-
     </style>
 
 </head>
+
 <body>
+
 <div class="wrap">
 
     <section class="score">
@@ -103,14 +107,15 @@
             <li class="list-header">
                 <div class="count">총 학생 수: ${sList.size()}명</div>
                 <div class="sort-link-group">
+                    <div><a href="/score/list?sort=num">학번순</a></div>
                     <div><a href="/score/list?sort=name">이름순</a></div>
-                    <div><a href="/score/list?sort=stuNum">학번순</a></div>
-                    <div><a href=/score/list?sort=avg>평균순</a></div>
+                    <div><a href="/score/list?sort=avg">평균순</a></div>
                 </div>
 
             </li>
 
-            <c:forEach var = "s" items="${sList}">
+
+            <c:forEach var="s" items="${sList}">
                 <li>
                     # 학번: ${s.stuNum}, 이름: <a href="/score/detail?stuNum=${s.stuNum}">${s.stuName}</a>,
                     평균: ${s.average}점, 학점: ${s.grade}
@@ -122,11 +127,8 @@
 
     </section>
 
-
-
 </div>
 
-
-
 </body>
+
 </html>

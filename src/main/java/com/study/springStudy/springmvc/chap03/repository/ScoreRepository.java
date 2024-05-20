@@ -18,4 +18,7 @@ public interface ScoreRepository {
         return false;
     }; // 강제 overriding에서 빠짐
     // 저장소에서 데이터 삭제하기
+
+    // 저장소에서 등수, 전체인원 조회하기
+    int[] findRankByStuNum(long stuNum);
 }
