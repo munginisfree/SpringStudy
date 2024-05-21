@@ -5,6 +5,7 @@ import com.study.springStudy.springmvc.chap04.dto.BoardListResponseDto;
 import com.study.springStudy.springmvc.chap04.dto.BoardWriteRequestDto;
 import com.study.springStudy.springmvc.chap04.entity.Board;
 import com.study.springStudy.springmvc.chap04.repository.BoardRepository;
+import com.study.springStudy.springmvc.chap04.service.BoardService;
 import com.study.springStudy.webServlet.OurModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -25,21 +26,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BoardController {
 
-    private final BoardRepository repository;
+//    private final BoardRepository repository;
+    private final BoardService service;
     // 1. 목록조회 요청 (/board/list:GET)
     @GetMapping("/list")
     public String list(Model model){
         System.out.println("/board/list GET");
 
-        // 1. 데이터 베이스로부터 게시글 목록 조회
-        List<Board> boardList = repository.findAll();
+        List<BoardListResponseDto> bList = service.getList();
 
-        // 2. 클라이언트에 데이터를 보내기 전에 렌드링에 필요한
-        //    데이터만 추출하기
-        List<BoardListResponseDto> bList = boardList.stream()
-                .map(BoardListResponseDto::new)
-                        .collect(Collectors.toList());
-        // 3. JSP파일에 해당 목록 데이터를 보냄
         model.addAttribute("bList", bList);
         return "board/list";
     }
@@ -58,17 +53,17 @@ public class BoardController {
         System.out.println("dto = " + dto);
 
         // 2. 해당 게시글을 데이터베이스에 저장하기 위해 엔터티 클래스로 변환
-        Board b = dto.toEntity();
-        repository.save(b);
+        service.convertEntity(dto);
+
         // 3. 데이터베이스 저장 명령
-        return "board/write";
+        return "redirect:/board/list";
     }
 
     // 4. 게시글 삭제요청 (/board/delete/ :GET)
     // -> 목록조회 요청 리다이렉션
     @GetMapping("/delete")
     public String delete(int bno){
-        repository.delete(bno);
+        service.delete(bno);
         return "redirect:/board/list";
     }
 
@@ -76,14 +71,12 @@ public class BoardController {
     // -> 목록조회 요청 리다이렉션
     @GetMapping("/detail")
     public String detail(int bno, Model model){
-        
-        // 1. 상세조회 하고싶은 글번호를 읽기
-        System.out.println("bno = " + bno);
+
         // 2. 데이터베이스로부터 해당 글번호 데이터 조회하기
-        Board b = repository.findOne(bno);
+        Board b = service.findOne(bno);
 
         if(b != null){
-            repository.upViewCount(bno);
+            service.upViewCount(bno);
         }
         // 3. JSP파일에 조회한 데이터 보내기
         model.addAttribute("bbb", new BoardDetailResponseDto(b));

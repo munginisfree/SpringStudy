@@ -76,7 +76,7 @@ class SpringJdbcTest {
             System.out.println("person = " + person);
         }
         assertEquals(3, ppl.size());
-        assertEquals("theFirst", ppl.get(0).getPerson_name());
+        assertEquals("theFirst", ppl.get(0).getPersonName());
     }
 
     @Test
@@ -90,7 +90,7 @@ class SpringJdbcTest {
         //then
         System.out.println("one = " + one);
         assertNotNull(one);
-        assertEquals("oneOone", one.getPerson_name());
-        assertEquals(7, one.getPerson_age());
+        assertEquals("oneOone", one.getPersonName());
+        assertEquals(7, one.getPersonAge());
     }
 }

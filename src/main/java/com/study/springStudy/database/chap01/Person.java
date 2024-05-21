@@ -13,12 +13,12 @@ import java.sql.SQLException;
 public class Person {
 
     private long id;
-    private String person_name;
-    private int person_age;
+    private String personName;
+    private int personAge;
 
     public Person(ResultSet rs) throws SQLException {
         this.id = rs.getLong("id");
-        this.person_name = rs.getString("person_name");
-        this.person_age = rs.getInt("person_age");
+        this.personName = rs.getString("person_name");
+        this.personAge = rs.getInt("person_age");
     }
 }

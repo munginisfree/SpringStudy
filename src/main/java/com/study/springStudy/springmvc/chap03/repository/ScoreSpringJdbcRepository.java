@@ -1,11 +1,13 @@
 package com.study.springStudy.springmvc.chap03.repository;
 
+import com.study.springStudy.springmvc.chap03.dto.ScoreListResponseDto;
 import com.study.springStudy.springmvc.chap03.entity.Score;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,27 +20,38 @@ public class ScoreSpringJdbcRepository implements ScoreRepository {
         String sql = "INSERT INTO tbl_score " +
                 "(stu_name, kor, eng, math, total, average, grade) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        return template.update(sql, score.getStuName(), score.getKor(),
-                score.getEng(), score.getMath(), score.getTotal(),
-                score.getAverage(), score.getGrade().toString()) == 1;
+        return template.update(sql,
+                score.getStuName(), score.getKor(), score.getEng()
+                , score.getMath(), score.getTotal(), score.getAverage()
+                , score.getGrade().toString()) == 1;
     }
 
     @Override
     public List<Score> findAll(String sort) {
-        String sql = "SELECT * FROM tbl_score ";
-        return template.query(sql, (rs, n)->new Score(rs));
+        String sql = "SELECT * FROM tbl_score " + orderByStatement(sort);
+        return template.query(sql, (rs, n) -> new Score(rs));
+    }
+
+    private String orderByStatement(String sort) {
+        String sortSql = "ORDER BY ";
+        switch (sort) {
+            case "num":
+                sortSql += "stu_num";
+                break;
+            case "name":
+                sortSql += "stu_name";
+                break;
+            case "avg":
+                sortSql += "average DESC";
+                break;
+        }
+        return sortSql;
     }
 
     @Override
     public Score findOne(long stuNum) {
         String sql = "SELECT * FROM tbl_score WHERE stu_num = ?";
-        return template.queryForObject(sql, (rs, n)->new Score(rs), stuNum);
-    }
-
-    @Override
-    public boolean delete(long stuNum) {
-        String sql = "DELETE FROM tbl_score WHERE stu_num = ?";
-        return template.update(sql, stuNum) == 1;
+        return template.queryForObject(sql, (rs, n) -> new Score(rs), stuNum);
     }
 
     @Override
@@ -53,5 +66,21 @@ public class ScoreSpringJdbcRepository implements ScoreRepository {
                 rs.getInt("rank"),
                 rs.getInt("cnt")
         }, stuNum);
+    }
+
+    @Override
+    public boolean delete(long stuNum) {
+        String sql = "DELETE FROM tbl_score WHERE stu_num = ?";
+        return template.update(sql, stuNum) == 1;
+    }
+
+    @Override
+    public boolean updateScore(Score s) {
+        String sql = "UPDATE tbl_score " +
+                "SET kor = ?, eng = ?, math = ?, " +
+                "total = ?, average =?, grade = ? " +
+                "WHERE stu_num = ?";
+        return template.update(sql, s.getKor(), s.getEng(), s.getMath()
+                , s.getTotal(), s.getAverage(), s.getGrade().toString(), s.getStuNum()) == 1;
     }
 }

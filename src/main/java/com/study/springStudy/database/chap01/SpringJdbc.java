@@ -20,7 +20,7 @@ public class SpringJdbc {
         String sql = "insert into tbl_person values (?, ?, ?)";
 
         return template.update(sql, person.getId(),
-                person.getPerson_name(), person.getPerson_age());
+                person.getPersonName(), person.getPersonAge());
     }
 
     // DELETE
@@ -34,7 +34,7 @@ public class SpringJdbc {
     public boolean update(Person newPerson){
         // 이름과 나이 수정
         String sql = "UPDATE tbl_person SET person_name = ?, person_age = ? WHERE id = ?";
-        int result = template.update(sql,  newPerson.getPerson_name(), newPerson.getPerson_age(), newPerson.getId());
+        int result = template.update(sql,  newPerson.getPersonName(), newPerson.getPersonAge(), newPerson.getId());
         return result == 1;
     }
 

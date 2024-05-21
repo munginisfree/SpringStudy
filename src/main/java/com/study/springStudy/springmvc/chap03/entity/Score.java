@@ -1,11 +1,14 @@
 package com.study.springStudy.springmvc.chap03.entity;
 
+import com.study.springStudy.springmvc.chap03.dto.ScoreModifyRequestDto;
 import com.study.springStudy.springmvc.chap03.dto.ScorePostDto;
+import lombok.AllArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// 역할: 데이터 베이스의 테이블의 컬럼과 1대1로 매칭되는 필드를 가진 객체
+// 역할: 데이터베이스의 테이블의 컬럼과 1대1로 매칭되는 필드를 가진 객체
+@AllArgsConstructor
 public class Score {
 
     private long stuNum;
@@ -28,11 +31,24 @@ public class Score {
         this.grade = Grade.valueOf(rs.getString("grade"));
     }
 
+
     public Score(ScorePostDto dto) {
         this.stuName = dto.getName();
         this.kor = dto.getKor();
         this.eng = dto.getEng();
         this.math = dto.getMath();
+        calculate();
+    }
+
+    public Score(ScoreModifyRequestDto dto) {
+        this.stuNum = dto.getStuNum();
+        this.kor = dto.getKor();
+        this.eng = dto.getEng();
+        this.math = dto.getMath();
+        calculate();
+    }
+
+    private void calculate() {
         this.total = kor + eng + math;
         this.average = total / 3.0;
         this.grade = calcGrade();
@@ -51,6 +67,7 @@ public class Score {
             return Grade.F;
         }
     }
+
 
     public long getStuNum() {
         return stuNum;
