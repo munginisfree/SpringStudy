@@ -20,6 +20,8 @@ public class BoardListResponseDto {
     private String shortContent; // 30자 이상 줄임 처리된 글 내용
     private String date; // 포맷팅된 날짜 문자열
     private int view; // 조회 수
+    private boolean hit; // HIT 게시물인가?
+    private boolean newArticle;
 
     // 엔터티를 DTO로 변환하는 생성자
     public BoardListResponseDto(Board b) {
@@ -28,6 +30,8 @@ public class BoardListResponseDto {
         this.shortContent = makeShortText(b.getContent(), 30);
         this.date = dateFormatting(b.getRegDateTime());
         this.view = b.getViewCount();
+        this.hit = this.view > 5;
+        this.newArticle = LocalDateTime.now().isBefore(b.getRegDateTime().plusHours(1));
     }
 
     private String makeShortText(String text, int n) {

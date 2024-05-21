@@ -50,7 +50,7 @@ public class BoardController {
     @PostMapping("/write")
     public String write(BoardWriteRequestDto dto){
         // 1. 브라우저가 전달한 게시글 내용 읽기
-        System.out.println("dto = " + dto);
+//        System.out.println("dto = " + dto);
 
         // 2. 해당 게시글을 데이터베이스에 저장하기 위해 엔터티 클래스로 변환
         service.convertEntity(dto);
@@ -73,11 +73,7 @@ public class BoardController {
     public String detail(int bno, Model model){
 
         // 2. 데이터베이스로부터 해당 글번호 데이터 조회하기
-        Board b = service.findOne(bno);
-
-        if(b != null){
-            service.upViewCount(bno);
-        }
+        Board b = service.update(bno);
         // 3. JSP파일에 조회한 데이터 보내기
         model.addAttribute("bbb", new BoardDetailResponseDto(b));
         return "board/detail";

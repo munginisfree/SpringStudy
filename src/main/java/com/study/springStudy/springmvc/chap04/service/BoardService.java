@@ -36,13 +36,24 @@ public class BoardService {
         repository.upViewCount(boardNo);
     }
 
+    public Board update(int boardNo){
+        Board b = findOne(boardNo);
+
+        if(b != null){
+            upViewCount(boardNo);
+        }
+        return b;
+    }
+
     public List<BoardListResponseDto> getList() {
         List<Board> boardList = repository.findAll();
 
-        List<BoardListResponseDto> bList = boardList.stream()
+        // 조회해온 게시물 리스트에서 각 게시물들의 조회수를 확인하여 조회수가 5 이상인 게시물에 특정 마킹
+
+        List<BoardListResponseDto> dtoList = boardList.stream()
                 .map(BoardListResponseDto::new)
                 .collect(Collectors.toList());
-        return bList;
+        return dtoList;
     }
 
     public void convertEntity(BoardWriteRequestDto dto) {
